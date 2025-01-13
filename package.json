@@ -1,0 +1,21 @@
+{
+  "name": "apv-backend",
+  "version": "1.0.0",
+  "description": "full-stack",
+  "main": "sever.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Hugo Andrés Romero",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
