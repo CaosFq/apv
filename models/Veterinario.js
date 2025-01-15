@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import bcrypt from'bcrypt';
+import generarId from '../helpers/generarId.js';
 
 // Definir el esquema
 const veterinarioSchema = mongoose.Schema({
@@ -27,11 +29,27 @@ const veterinarioSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  token:{
+    type: String,
+    default: generarId(),
+  },
   confirmado: {
     type: Boolean,
     default: false,
   },
 });
+
+// Encriptar la contraseña antes de guardarla en la base de datos
+veterinarioSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
 
 // Crear el modelo a partir del esquema
 const Veterinario = mongoose.model('Veterinario', veterinarioSchema);
